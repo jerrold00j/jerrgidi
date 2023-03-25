@@ -1,0 +1,472 @@
+[
+    {
+        "id": "fc1b0b2a650a4680",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "02c99ab8d6537dcc",
+        "type": "ibmiot",
+        "name": "",
+        "keepalive": "60",
+        "serverName": "2on79n.messaging.internetofthings.ibmcloud.com",
+        "cleansession": true,
+        "appId": "",
+        "shared": false
+    },
+    {
+        "id": "41f7d73c59a40c01",
+        "type": "ibmiot in",
+        "z": "fc1b0b2a650a4680",
+        "authentication": "apiKey",
+        "apiKey": "02c99ab8d6537dcc",
+        "inputType": "evt",
+        "logicalInterface": "",
+        "ruleId": "",
+        "deviceId": "Furnace",
+        "applicationId": "",
+        "deviceType": "ESP32",
+        "eventType": "+",
+        "commandType": "",
+        "format": "json",
+        "name": "IBM IoT",
+        "service": "registered",
+        "allDevices": false,
+        "allApplications": "",
+        "allDeviceTypes": false,
+        "allLogicalInterfaces": "",
+        "allEvents": true,
+        "allCommands": "",
+        "allFormats": "",
+        "qos": 0,
+        "x": 110,
+        "y": 40,
+        "wires": [
+            [
+                "d69ac8fcd1ecac64",
+                "79fc8c3c3690b6fb",
+                "c8213347ce2c87eb",
+                "cb08ed9cfacefd22",
+                "b1fc57b93cb2cd62",
+                "aa3aaf34578ca4e8",
+                "eda8f533e134ce0c"
+            ]
+        ]
+    },
+    {
+        "id": "d69ac8fcd1ecac64",
+        "type": "debug",
+        "z": "fc1b0b2a650a4680",
+        "name": "msg payload",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "79fc8c3c3690b6fb",
+        "type": "function",
+        "z": "fc1b0b2a650a4680",
+        "name": "Furnace Temperature",
+        "func": "global.set(\"Temperature\", msg.payload.Temperature)\nmsg.payload = msg.payload.Temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 80,
+        "wires": [
+            [
+                "d69ac8fcd1ecac64"
+            ]
+        ]
+    },
+    {
+        "id": "c8213347ce2c87eb",
+        "type": "function",
+        "z": "fc1b0b2a650a4680",
+        "name": "Boiler Humidity",
+        "func": "global.set('HumidityB', msg.payload.Humidity)\nmsg.payload = msg.payload.Humidity;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 280,
+        "wires": [
+            [
+                "d69ac8fcd1ecac64"
+            ]
+        ]
+    },
+    {
+        "id": "cb08ed9cfacefd22",
+        "type": "function",
+        "z": "fc1b0b2a650a4680",
+        "name": "Furnace IR Intensity",
+        "func": "global.set('IRIntensity', msg.payload.IRIntensity)\nmsg.payload = msg.payload.IRIntensity;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 120,
+        "wires": [
+            [
+                "d69ac8fcd1ecac64"
+            ]
+        ]
+    },
+    {
+        "id": "b1fc57b93cb2cd62",
+        "type": "function",
+        "z": "fc1b0b2a650a4680",
+        "name": "FumeHood MQ135",
+        "func": "global.set('MQ135', msg.payload.MQ135)\nmsg.payload = msg.payload.MQ135;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 160,
+        "wires": [
+            [
+                "d69ac8fcd1ecac64"
+            ]
+        ]
+    },
+    {
+        "id": "aa3aaf34578ca4e8",
+        "type": "function",
+        "z": "fc1b0b2a650a4680",
+        "name": "FumeHood MQ07",
+        "func": "global.set('MQ07', msg.payload.MQ07)\nmsg.payload = msg.payload.MQ07;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 200,
+        "wires": [
+            [
+                "d69ac8fcd1ecac64"
+            ]
+        ]
+    },
+    {
+        "id": "8a1bf2e9e9ad87a0",
+        "type": "http in",
+        "z": "fc1b0b2a650a4680",
+        "name": "",
+        "url": "/data/furnace/temperature",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 340,
+        "wires": [
+            [
+                "2eb4d2338b424de9"
+            ]
+        ]
+    },
+    {
+        "id": "2eb4d2338b424de9",
+        "type": "function",
+        "z": "fc1b0b2a650a4680",
+        "name": "Furnace Temperature",
+        "func": "msg.payload = global.get(\"Temperature\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 340,
+        "wires": [
+            [
+                "474656ad6b41356e"
+            ]
+        ]
+    },
+    {
+        "id": "474656ad6b41356e",
+        "type": "http response",
+        "z": "fc1b0b2a650a4680",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 830,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "b39fca0a95b1dd08",
+        "type": "http in",
+        "z": "fc1b0b2a650a4680",
+        "name": "",
+        "url": "/data/furnace/irintensity",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 380,
+        "wires": [
+            [
+                "9cbceacd18f57c99"
+            ]
+        ]
+    },
+    {
+        "id": "96d7634c89dcb69e",
+        "type": "http in",
+        "z": "fc1b0b2a650a4680",
+        "name": "",
+        "url": "/data/fumehood/mq135",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 420,
+        "wires": [
+            [
+                "f4a98fc222ea6f94"
+            ]
+        ]
+    },
+    {
+        "id": "43bda592240101d5",
+        "type": "http in",
+        "z": "fc1b0b2a650a4680",
+        "name": "",
+        "url": "/data/boiler/humidity",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 500,
+        "wires": [
+            [
+                "4c82b5904b954613"
+            ]
+        ]
+    },
+    {
+        "id": "50be48b05ebf43ca",
+        "type": "http in",
+        "z": "fc1b0b2a650a4680",
+        "name": "",
+        "url": "/data/fumehood/mq07",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 460,
+        "wires": [
+            [
+                "135c3db6d1c0ff07"
+            ]
+        ]
+    },
+    {
+        "id": "ab6fff3c78e8c2a5",
+        "type": "http response",
+        "z": "fc1b0b2a650a4680",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 830,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "db13e57839ec9631",
+        "type": "http response",
+        "z": "fc1b0b2a650a4680",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 830,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "9b581ceae842124f",
+        "type": "http response",
+        "z": "fc1b0b2a650a4680",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 830,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "fce161523e066691",
+        "type": "http response",
+        "z": "fc1b0b2a650a4680",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 830,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "9cbceacd18f57c99",
+        "type": "function",
+        "z": "fc1b0b2a650a4680",
+        "name": "Furnace IR Intensity",
+        "func": "msg.payload = global.get(\"IRIntensity\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 380,
+        "wires": [
+            [
+                "ab6fff3c78e8c2a5"
+            ]
+        ]
+    },
+    {
+        "id": "f4a98fc222ea6f94",
+        "type": "function",
+        "z": "fc1b0b2a650a4680",
+        "name": "FumeHood MQ135",
+        "func": "msg.payload = global.get(\"MQ135\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 420,
+        "wires": [
+            [
+                "db13e57839ec9631"
+            ]
+        ]
+    },
+    {
+        "id": "4c82b5904b954613",
+        "type": "function",
+        "z": "fc1b0b2a650a4680",
+        "name": "Boiler Humidity",
+        "func": "msg.payload = global.get(\"HumidityB\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 500,
+        "wires": [
+            [
+                "9b581ceae842124f"
+            ]
+        ]
+    },
+    {
+        "id": "135c3db6d1c0ff07",
+        "type": "function",
+        "z": "fc1b0b2a650a4680",
+        "name": "FumeHood MQ07",
+        "func": "msg.payload = global.get(\"MQ07\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 460,
+        "wires": [
+            [
+                "fce161523e066691"
+            ]
+        ]
+    },
+    {
+        "id": "eda8f533e134ce0c",
+        "type": "function",
+        "z": "fc1b0b2a650a4680",
+        "name": "Boiler Temperature",
+        "func": "global.set(\"TemperatureB\", msg.payload.Temperature)\nmsg.payload = msg.payload.Temperature;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 240,
+        "wires": [
+            [
+                "d69ac8fcd1ecac64"
+            ]
+        ]
+    },
+    {
+        "id": "8f0867207820fc8f",
+        "type": "http in",
+        "z": "fc1b0b2a650a4680",
+        "name": "",
+        "url": "/data/boiler/temperature",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 540,
+        "wires": [
+            [
+                "c39d4f5169029dbf"
+            ]
+        ]
+    },
+    {
+        "id": "a45ac3a80f7fe19b",
+        "type": "http response",
+        "z": "fc1b0b2a650a4680",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 830,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "c39d4f5169029dbf",
+        "type": "function",
+        "z": "fc1b0b2a650a4680",
+        "name": "Boiler Temperature",
+        "func": "msg.payload = global.get(\"TemperatureB\")\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 540,
+        "wires": [
+            [
+                "a45ac3a80f7fe19b"
+            ]
+        ]
+    }
+]
